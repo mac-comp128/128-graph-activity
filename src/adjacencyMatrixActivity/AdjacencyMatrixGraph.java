@@ -24,12 +24,8 @@ public class AdjacencyMatrixGraph {
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
-        matrix = new int[V][V];
-        for (int v = 0; v < V; v++) {
-            for(int v2 = 0; v2 < V; v2++) {
-                matrix[v][v2] = 0;
-            }
-        }
+        //TODO: Initialize the matrix and fill it with 0s.
+
     }
 
     /**
@@ -133,7 +129,7 @@ public class AdjacencyMatrixGraph {
      */
     public int degree(int v) {
         // TODO: Return the degree of vertex v. Make sure that v exists
-
+        return 0; //fix me
     }
 
 
