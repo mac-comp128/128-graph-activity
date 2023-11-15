@@ -76,6 +76,13 @@ public abstract class SymbolGraph {
         }
     }
 
+    /**
+     * Generates the internal Graph representation. 
+     * The graph implementation is determined by the conccrete class that
+     * extends this class.
+     *
+     * @param v the number of vertices in the graph
+     */
     public abstract Graph createGraph(int v);
 
 
@@ -131,12 +138,13 @@ public abstract class SymbolGraph {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
     /**
-     * Unit tests the {@code SymbolGraph} data type.
+     * Tests the {@code SymbolGraph} data type in the command line.
+     * Used by the main method in the classes that extend this class.
      *
-     * @param args the command-line arguments
+     * @param sg the the graph to test
      */
-    public static void main(String[] args) throws FileNotFoundException  {
-        SymbolGraph sg = new SymbolGraph(SymbolGraph.class.getResource("/routes.txt").getPath(), " ");
+
+    public static void test(SymbolGraph sg) throws FileNotFoundException  {
         Graph graph = sg.graph();
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter an airport code:");
@@ -145,7 +153,6 @@ public abstract class SymbolGraph {
         // Find the "integer" this name maps to
         // Print the adjacent vertices, i.e. airport codes
         // Otherwise, display an error message
-
 
         }
     }

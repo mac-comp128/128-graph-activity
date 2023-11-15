@@ -215,7 +215,7 @@ public class AdjacencyListGraph implements Graph {
     }
 
     /**
-     * Unit tests the {@code Graph} data type.
+     * Tests the {@code Graph} data type.
      *
      * @param args the command-line arguments
      */
