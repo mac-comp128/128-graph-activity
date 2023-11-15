@@ -1,17 +1,16 @@
-package adjacencyMatrixActivity;
+package graphImplementation.adjacencyMatrixActivity;
 
-import adjacencyListActivity.Graph;
-import adjacencyListActivity.SymbolGraph;
-
+import graphImplementation.Graph;
 /**
  * A runnable task used to test the timing of a graph. The tasks in the run method are fairly arbitrary, but represent
  * calls to access edges and vertices in the graph.
  */
-public class AdjacencyListTask implements Runnable {
-    private final SymbolGraph graph;
+public class AdjacencyMatrixTask implements Runnable {
 
-    AdjacencyListTask(SymbolGraph sgraph) {
-        graph = sgraph;
+    private final AdjacencyMatrixSymbolGraph graph;
+
+    public AdjacencyMatrixTask(AdjacencyMatrixSymbolGraph mgraph) {
+        graph = mgraph;
     }
 
     @Override

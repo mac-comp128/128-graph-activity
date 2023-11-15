@@ -1,11 +1,11 @@
-package adjacencyMatrixActivity;
-
-import adjacencyListActivity.Graph;
-import adjacencyListActivity.SymbolGraph;
+package graphImplementation;
 
 import java.io.FileNotFoundException;
 import org.openjdk.jol.info.GraphLayout;
 import org.openjdk.jol.vm.VM;
+
+import graphImplementation.adjacencyListActivity.*;
+import graphImplementation.adjacencyMatrixActivity.*;
 
 /**
  * Class used to analyze the time and space requirements of different graph implementations
@@ -46,13 +46,13 @@ public class Analyzer {
 
 
     public static void main(String[] args)  throws FileNotFoundException {
-        String filepath = MatrixSymbolGraph.class.getResource("/routes.txt").getPath();
+        String filepath = AdjacencyMatrixSymbolGraph.class.getResource("/routes.txt").getPath();
         Analyzer analyzer = new Analyzer();
 
         VM.current().details();
         System.out.println();
         System.out.println("================= Adjacency Matrix Graph ================");
-        MatrixSymbolGraph msg = new MatrixSymbolGraph(filepath, " ");
+        AdjacencyMatrixSymbolGraph msg = new AdjacencyMatrixSymbolGraph(filepath, " ");
         System.out.println(GraphLayout.parseInstance(msg).toFootprint());
    
         AdjacencyMatrixTask mTask = new AdjacencyMatrixTask(msg);
@@ -61,7 +61,7 @@ public class Analyzer {
 
         System.out.println();
         System.out.println("================= Adjacency List Graph ================");
-        SymbolGraph alsg = new SymbolGraph(filepath, " ");
+        AdjacencyListSymbolGraph alsg = new AdjacencyListSymbolGraph(filepath, " ");
         System.out.println(GraphLayout.parseInstance(alsg).toFootprint());
    
         AdjacencyListTask lTask = new AdjacencyListTask(alsg);

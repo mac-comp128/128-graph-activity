@@ -1,15 +1,16 @@
-package adjacencyMatrixActivity;
+package graphImplementation;
+
 /**
- *  The {@code MatrixSymbolGraph} class represents an undirected graph, where the
+ *  The {@code SymbolGraph} class represents an undirected graph, where the
  *  vertex names are arbitrary strings.
  *  By providing mappings between string vertex names and integers,
  *  it serves as a wrapper around the
- *  {@link AdjacencyMatrixGraph} data type, which assumes the vertex names are integers
+ *  {@link Graph} data type, which assumes the vertex names are integers
  *  between 0 and <em>V</em> - 1.
  *  It also supports initializing a symbol graph from a file.
  *  <p>
  *  This implementation uses a TreeMap to map from strings to integers,
- *  an array to map from integers to strings, and a {@link AdjacencyMatrixGraph} to store
+ *  an array to map from integers to strings, and a {@link Graph} to store
  *  the underlying graph.
  *  The <em>indexOf</em> and <em>contains</em> operations take time
  *  proportional to log <em>V</em>, where <em>V</em> is the number of vertices.
@@ -21,18 +22,15 @@ package adjacencyMatrixActivity;
  *
  *  EK: Modified to use a TreeMap and Scanner
  */
-
-import adjacencyListActivity.SymbolGraph;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class MatrixSymbolGraph {
+public abstract class SymbolGraph {
     private TreeMap<String, Integer> st;  // string -> index
     private String[] keys;           // index  -> string
-    private AdjacencyMatrixGraph graph;             // the underlying graph
+    private Graph graph;             // the underlying graph
 
     /**
      * Initializes a graph from a file using the specified delimiter.
@@ -43,7 +41,7 @@ public class MatrixSymbolGraph {
      * @param filename  the name of the file
      * @param delimiter the delimiter between fields
      */
-    public MatrixSymbolGraph(String filename, String delimiter) throws FileNotFoundException {
+    public SymbolGraph(String filename, String delimiter) throws FileNotFoundException {
         st = new TreeMap<String, Integer>();
 
         // First pass builds the index by reading strings to associate
@@ -66,7 +64,7 @@ public class MatrixSymbolGraph {
 
         // second pass builds the graph by connecting first vertex on each
         // line to all others
-        graph = new AdjacencyMatrixGraph(st.size());
+        graph = createGraph(st.size());
         in = new Scanner(new File(filename));
         while (in.hasNextLine()) {
             String[] a = in.nextLine().split(delimiter);
@@ -77,6 +75,9 @@ public class MatrixSymbolGraph {
             }
         }
     }
+
+    public abstract Graph createGraph(int v);
+
 
     /**
      * Does the graph contain the vertex named {@code s}?
@@ -119,7 +120,7 @@ public class MatrixSymbolGraph {
      *
      * @return the graph associated with the symbol graph
      */
-    public AdjacencyMatrixGraph graph() {
+    public Graph graph() {
         return graph;
     }
 
@@ -130,30 +131,21 @@ public class MatrixSymbolGraph {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
     /**
-     * Unit tests the {@code MatrixSymbolGraph} data type.
+     * Unit tests the {@code SymbolGraph} data type.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) throws FileNotFoundException  {
-        String filepath = MatrixSymbolGraph.class.getResource("/routes.txt").getPath();
-        MatrixSymbolGraph sg = new MatrixSymbolGraph(filepath, " ");
-        AdjacencyMatrixGraph graph = sg.graph();
+        SymbolGraph sg = new SymbolGraph(SymbolGraph.class.getResource("/routes.txt").getPath(), " ");
+        Graph graph = sg.graph();
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter an airport code:");
-        String source = scan.nextLine();
-        while (!source.equalsIgnoreCase("quit")) {
-            if (sg.contains(source)) {
-                int s = sg.indexOf(source);
-                for (int v : graph.adj(s)) {
-                    System.out.println("   " + sg.nameOf(v));
-                }
-            }
-            else {
-                System.out.println("Graph does not contain '" + source + "'");
-            }
-            System.out.print("Enter an airport code:");
-            source = scan.nextLine();
+        System.out.println("Enter an airport code:");
+        //TODO: Repeatedly read an airport code from the keyboard until the user enters quit
+        // If this is a vertex on the graph,
+        // Find the "integer" this name maps to
+        // Print the adjacent vertices, i.e. airport codes
+        // Otherwise, display an error message
+
 
         }
     }
-}
