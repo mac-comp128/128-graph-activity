@@ -3,6 +3,9 @@ package graphImplementation.adjacencyMatrixActivity;
 import graphImplementation.*;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 /**
  *  
@@ -34,9 +37,13 @@ public class AdjacencyMatrixSymbolGraph extends SymbolGraph {
      * Tests the {@code AdjacencyMatrixSymbolGraph} data type in the command line.
      *
      * @param args command line arguments
+     * @throws FileNotFoundException
+     * @throws URISyntaxException
      */
-    public static void main(String[] args) throws FileNotFoundException {
-        SymbolGraph sg = new AdjacencyMatrixSymbolGraph(AdjacencyMatrixSymbolGraph.class.getResource("/routes.txt").getPath(), " ");
+    public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
+        URI uri = AdjacencyMatrixSymbolGraph.class.getResource("/routes.txt").toURI();
+        String path = Paths.get(uri).toAbsolutePath().toString();
+        SymbolGraph sg = new AdjacencyMatrixSymbolGraph(path, " ");
         test(sg);
     }
 }
