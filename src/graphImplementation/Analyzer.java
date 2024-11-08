@@ -1,6 +1,10 @@
 package graphImplementation;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 import org.openjdk.jol.info.GraphLayout;
 import org.openjdk.jol.vm.VM;
 
@@ -45,8 +49,9 @@ public class Analyzer {
 
 
 
-    public static void main(String[] args)  throws FileNotFoundException {
-        String filepath = AdjacencyMatrixSymbolGraph.class.getResource("/routes.txt").getPath();
+    public static void main(String[] args)  throws FileNotFoundException, URISyntaxException {
+        URI uri = AdjacencyMatrixSymbolGraph.class.getResource("/routes.txt").toURI();
+        String filepath = Paths.get(uri).toAbsolutePath().toString();
         Analyzer analyzer = new Analyzer();
 
         VM.current().details();
